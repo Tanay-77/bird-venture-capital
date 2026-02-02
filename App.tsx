@@ -188,7 +188,7 @@ const ValueProposition: React.FC = () => {
           {/* Card 3: Technical Leverage (Full width) */}
           <Reveal className="md:col-span-3 bg-neutral-50 rounded-[2.5rem] p-8 md:p-12 grid md:grid-cols-2 gap-12 items-center hover:shadow-xl transition-shadow duration-500 group">
             <div>
-              <h3 className="text-2xl font-bold tracking-tight mb-4">Technical Levertafa</h3>
+              <h3 className="text-2xl font-bold tracking-tight mb-4">Technical Leverage</h3>
               <p className="text-gray-500 font-light text-lg leading-relaxed">
                 We invest before it's obvious. Before the traction. Before the hype. Because the best companies don't look safe at the start, they look interesting.
               </p>
