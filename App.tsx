@@ -242,50 +242,61 @@ const Philosophy: React.FC = () => {
 };
 
 const HowItWorks: React.FC = () => {
-  const steps = [
-    {
-      id: "Step 01",
-      title: "Apply",
-      desc: "Founders submit a short application detailing their vision, the problem, and why they're the team to solve it.",
-      img: "https://images.unsplash.com/photo-1497366216548-37526070297c?auto=format&fit=crop&q=80&w=800"
-    },
-    {
-      id: "Step 02",
-      title: "Build",
-      desc: "Collaborate on early product validation, technical architecture, and recruiting your first core hires.",
-      img: "https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800"
-    },
-    {
-      id: "Step 03",
-      title: "Scale",
-      desc: "Access our global network for follow-on funding, sales expansion, and long-term mentorship.",
-      img: "https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&q=80&w=800"
-    }
-  ];
-
   return (
-    <section className="py-40 px-6 bg-white">
+    <section className="py-32 px-6 bg-white">
       <div className="max-w-7xl mx-auto">
-        <Reveal className="mb-28">
-          <h2 className="text-5xl font-serif italic tracking-tight">How it works</h2>
+        <Reveal className="mb-20">
+          <h2 className="text-5xl font-serif mb-4 tracking-tighter">How it works</h2>
+          <p className="text-gray-400 font-light">How to get this opportunity and apply ?</p>
         </Reveal>
 
-        <div className="grid lg:grid-cols-3 gap-16">
-          {steps.map((step, i) => (
-            <Reveal key={i} className="space-y-10 group">
-              <div className="relative aspect-[16/10] rounded-[2rem] overflow-hidden shadow-2xl">
-                <img src={step.img} alt={step.title} className="w-full h-full object-cover transition-transform duration-1000 group-hover:scale-105" />
-                <div className="absolute inset-0 rainbow-gradient opacity-40"></div>
-                <div className="absolute top-8 left-8 text-[10px] font-bold uppercase tracking-[0.3em] bg-white/90 backdrop-blur-md px-4 py-2 rounded-full text-black">
-                  {step.id}
+        <div className="grid lg:grid-cols-3 gap-8">
+          {/* Steps 1 & 2 Combined Card */}
+          <Reveal className="lg:col-span-2 bg-neutral-50 rounded-[2rem] overflow-hidden flex flex-col md:flex-row hover:shadow-xl transition-shadow duration-500 group">
+            <div className="md:w-1/2 min-h-[400px] relative overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800"
+                alt="Runner"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+              <div className="absolute inset-0 bg-black/10"></div>
+            </div>
+            <div className="md:w-1/2 p-12 flex flex-col justify-center bg-neutral-50">
+              <p className="text-xs text-gray-400 font-bold uppercase tracking-widest mb-10">Steps ...</p>
+
+              <div className="space-y-10">
+                <div>
+                  <h3 className="text-2xl font-bold tracking-tight mb-3">Step 01 : Apply</h3>
+                  <p className="text-gray-500 font-light text-sm leading-relaxed">
+                    Tell us what you're building, why now, and why you.
+                  </p>
+                </div>
+                <div>
+                  <h3 className="text-2xl font-bold tracking-tight mb-3">Step 02 : Build</h3>
+                  <p className="text-gray-500 font-light text-sm leading-relaxed">
+                    If we invest, you join a small cohort and start building immediately with our support.
+                  </p>
                 </div>
               </div>
-              <div className="px-2">
-                <h3 className="text-2xl font-serif mb-5 italic">{step.title}</h3>
-                <p className="text-gray-500 font-light leading-relaxed">{step.desc}</p>
-              </div>
-            </Reveal>
-          ))}
+            </div>
+          </Reveal>
+
+          {/* Step 3 Card */}
+          <Reveal className="bg-neutral-50 rounded-[2rem] overflow-hidden hover:shadow-xl transition-shadow duration-500 group flex flex-col">
+            <div className="h-[300px] relative overflow-hidden">
+              <img
+                src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&q=80&w=800"
+                alt="Scale"
+                className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+              />
+            </div>
+            <div className="p-10 flex-grow">
+              <h3 className="text-2xl font-bold tracking-tight mb-3">Step 03 : Scale</h3>
+              <p className="text-gray-500 font-light text-sm leading-relaxed">
+                We help you refine your product, finde early users, and prepare for the next round.
+              </p>
+            </div>
+          </Reveal>
         </div>
       </div>
     </section>
