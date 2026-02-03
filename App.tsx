@@ -255,7 +255,7 @@ const HowItWorks: React.FC = () => {
           <Reveal className="lg:col-span-2 bg-neutral-50 rounded-[2rem] overflow-hidden flex flex-col md:flex-row hover:shadow-xl transition-shadow duration-500 group">
             <div className="md:w-1/2 min-h-[400px] relative overflow-hidden">
               <img
-                src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&q=80&w=800"
+                src="https://i.pinimg.com/1200x/2d/35/4b/2d354b904ff070a5c5930217aaca41c3.jpg"
                 alt="Runner"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
@@ -285,7 +285,7 @@ const HowItWorks: React.FC = () => {
           <Reveal className="bg-neutral-50 rounded-[2rem] overflow-hidden hover:shadow-xl transition-shadow duration-500 group flex flex-col">
             <div className="h-[300px] relative overflow-hidden">
               <img
-                src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&q=80&w=800"
+                src="https://i.pinimg.com/1200x/f3/98/71/f39871cf3c3915a0b75f818eb39f1ea1.jpg"
                 alt="Scale"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
@@ -303,46 +303,82 @@ const HowItWorks: React.FC = () => {
   );
 };
 
-const FAQItem: React.FC<{ q: string; a: string }> = ({ q, a }) => {
-  const [isOpen, setIsOpen] = useState(false);
+const FAQItem: React.FC<{ q: string; a: string; isOpen: boolean; toggle: () => void }> = ({ q, a, isOpen, toggle }) => {
   return (
-    <div className="border-b border-neutral-100 py-10">
-      <button
-        className="w-full flex justify-between items-center text-left text-2xl font-serif italic group"
-        onClick={() => setIsOpen(!isOpen)}
+    <div
+      className={`rounded-xl overflow-hidden transition-all duration-500 ${isOpen ? 'shadow-2xl' : 'bg-neutral-50 hover:bg-neutral-100'}`}
+    >
+      <div className="relative">
+        {isOpen && (
+          <div className="absolute inset-0 z-0">
+
+            <div className="absolute inset-0 bg-black/10"></div>
+          </div>
+        )}
+
+        <button
+          className={`relative z-10 w-full flex justify-between items-center text-left p-8 md:p-10 ${isOpen ? 'text-black' : 'text-neutral-900'}`}
+          onClick={toggle}
+        >
+          <span className={`text-xl md:text-2xl font-serif tracking-tight ${isOpen ? '' : 'font-light'}`}>{q}</span>
+          <div className={`transition-transform duration-500 ${isOpen ? 'rotate-180' : ''}`}>
+            {isOpen ? <Minus className="w-6 h-6" /> : <Plus className="w-6 h-6 text-neutral-400" />}
+          </div>
+        </button>
+      </div>
+
+      <div
+        className={`overflow-hidden transition-all duration-700 ease-in-out relative z-10 ${isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'}`}
       >
-        <span className="group-hover:text-neutral-500 transition-colors">{q}</span>
-        <div className={`transition-transform duration-500 ${isOpen ? 'rotate-180' : ''}`}>
-          {isOpen ? <Minus className="w-6 h-6 stroke-neutral-300" /> : <Plus className="w-6 h-6 stroke-neutral-300" />}
+        {/* If open, we need the background to extend or be visible here too. 
+             But the design shows the question and answer sharing the card background.
+             So we'll put the background on the parent container if valid, or just keep the structure simple.
+             For the open state, the image covers the whole card.
+         */}
+        {isOpen && (
+          <div className="absolute inset-0 -z-10">
+            <img src="/background image.jpg" alt="bg" className="w-full h-full object-cover" />
+            <div className="absolute inset-0 bg-black/10"></div>
+          </div>
+        )}
+
+        <div className="p-8 md:p-10 pt-0">
+          <p className={`font-light leading-relaxed max-w-3xl ${isOpen ? 'text-white/90' : 'text-gray-500'}`}>
+            {a}
+          </p>
         </div>
-      </button>
-      <div className={`overflow-hidden transition-all duration-700 ease-in-out ${isOpen ? 'max-h-96 mt-8 opacity-100' : 'max-h-0 opacity-0'}`}>
-        <p className="text-gray-500 font-light leading-relaxed max-w-2xl text-lg">
-          {a}
-        </p>
       </div>
     </div>
   );
 };
 
 const FAQ: React.FC = () => {
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
+
   const questions = [
+    { q: "What stage do you invest in?", a: "We typically invest pre-seed and seed. We love being the first check in." },
     { q: "How much do you invest?", a: "We typically invest initial checks of $100k - $500k in pre-seed and seed rounds, with substantial capacity for follow-on investments as you scale." },
     { q: "Do you require traction?", a: "No. We often invest in founders with nothing more than a prototype and a compelling vision. We value unique insights and technical excellence over early revenue." },
-    { q: "What is your investment focus?", a: "We are industry-agnostic but gravitate toward technical leverage — areas like AI infrastructure, longevity, climate tech, and distributed systems." },
-    { q: "What is your support model?", a: "Our support is tailored but intensive. You get direct access to our 'Founders Guild', regular strategy sessions, and operational help in recruiting and product-market fit." }
+    { q: "Where are you based?", a: "We are headquartered in San Francisco but invest globally. We have portfolio companies in New York, London, Tel Aviv, and Bangalore." },
+    { q: "What is your requirement?", a: "We look for technical founders solving hard problems. We like outliers." }
   ];
 
   return (
-    <section className="py-40 px-6 bg-neutral-50">
+    <section className="py-40 px-6 bg-white">
       <div className="max-w-4xl mx-auto">
-        <Reveal className="mb-20">
-          <h2 className="text-5xl font-serif italic text-center tracking-tight">Questions</h2>
+        <Reveal className="mb-20 text-center">
+          <h2 className="text-5xl font-serif italic tracking-tight mb-4">FAQ</h2>
+          <p className="text-gray-400 font-light">Everything you need to know before applying.</p>
         </Reveal>
-        <div>
+        <div className="space-y-4">
           {questions.map((item, i) => (
             <Reveal key={i}>
-              <FAQItem q={item.q} a={item.a} />
+              <FAQItem
+                q={item.q}
+                a={item.a}
+                isOpen={openIndex === i}
+                toggle={() => setOpenIndex(openIndex === i ? null : i)}
+              />
             </Reveal>
           ))}
         </div>
@@ -353,24 +389,27 @@ const FAQ: React.FC = () => {
 
 const Footer: React.FC = () => {
   return (
-    <footer className="py-32 px-6 bg-white border-t border-neutral-50">
+    <footer className="relative py-32 px-6 overflow-hidden">
+      <div className="absolute inset-0 -z-10">
+        <img src="/background image.jpg" alt="Footer Background" className="w-full h-full object-cover" />
+      </div>
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-16">
           <div className="lg:col-span-2 space-y-8">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 bg-black rounded-xl flex items-center justify-center">
-                <Bird className="w-6 h-6 text-white" />
+              <div className="w-10 h-10 bg-white rounded-xl flex items-center justify-center">
+                <Bird className="w-6 h-6 text-black" />
               </div>
-              <span className="text-2xl font-bold tracking-tighter">bird</span>
+              <span className="text-2xl text-white font-bold tracking-tighter">bird</span>
             </div>
-            <p className="text-gray-400 font-light max-w-sm leading-relaxed text-lg">
+            <p className="text-white font-light max-w-sm leading-relaxed text-lg">
               Investing in the bold, the curious, and the technical. We help you build the future from the ground up.
             </p>
           </div>
 
           <div className="space-y-8">
-            <h4 className="text-[10px] uppercase tracking-[0.3em] font-bold text-black">Programs</h4>
-            <ul className="space-y-5 text-gray-500 text-sm font-light">
+            <h4 className="text-[10px] uppercase tracking-[0.3em] font-bold text-white">Programs</h4>
+            <ul className="space-y-5 text-white text-sm font-light">
               <li><a href="#" className="hover:text-black transition-colors">Residency Program</a></li>
               <li><a href="#" className="hover:text-black transition-colors">Startup Mentorship</a></li>
               <li><a href="#" className="hover:text-black transition-colors">Funding Track</a></li>
@@ -379,8 +418,8 @@ const Footer: React.FC = () => {
           </div>
 
           <div className="space-y-8">
-            <h4 className="text-[10px] uppercase tracking-[0.3em] font-bold text-black">Connect</h4>
-            <ul className="space-y-5 text-gray-500 text-sm font-light">
+            <h4 className="text-[10px] uppercase tracking-[0.3em] font-bold text-white">Connect</h4>
+            <ul className="space-y-5 text-white text-sm font-light">
               <li><a href="#" className="hover:text-black transition-colors">LinkedIn</a></li>
               <li><a href="#" className="hover:text-black transition-colors">Twitter / X</a></li>
               <li><a href="#" className="hover:text-black transition-colors">YouTube</a></li>
@@ -389,8 +428,8 @@ const Footer: React.FC = () => {
           </div>
 
           <div className="space-y-8">
-            <h4 className="text-[10px] uppercase tracking-[0.3em] font-bold text-black">Legal</h4>
-            <ul className="space-y-5 text-gray-500 text-sm font-light">
+            <h4 className="text-[10px] uppercase tracking-[0.3em] font-bold text-white">Legal</h4>
+            <ul className="space-y-5 text-white text-sm font-light">
               <li><a href="#" className="hover:text-black transition-colors">Privacy Policy</a></li>
               <li><a href="#" className="hover:text-black transition-colors">Terms & Conditions</a></li>
               <li><a href="#" className="hover:text-black transition-colors">Cookie Policy</a></li>
@@ -399,9 +438,9 @@ const Footer: React.FC = () => {
         </div>
 
         <div className="mt-40 pt-10 border-t border-neutral-100 flex flex-col md:flex-row justify-between items-center gap-6">
-          <p className="text-gray-400 text-[10px] uppercase tracking-widest">© {new Date().getFullYear()} Bird Capital Management. All rights reserved.</p>
+          <p className="text-white text-[10px] uppercase tracking-widest">© {new Date().getFullYear()} Bird Capital Management. All rights reserved.</p>
           <div className="flex gap-10">
-            <a href="#" className="text-gray-400 hover:text-black transition-colors"><ChevronRight className="w-5 h-5" /></a>
+            <a href="#" className="text-white hover:text-black transition-colors"><ChevronRight className="w-5 h-5" /></a>
           </div>
         </div>
       </div>
