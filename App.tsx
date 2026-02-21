@@ -128,7 +128,7 @@ const Hero: React.FC = () => {
         <Reveal className="relative group">
           <div className="relative h-[700px] w-full rounded-[2.5rem] overflow-hidden  shadow-2xl">
             <img
-              src="/Hero.png"
+              src="/hero1.jpg"
               alt="Futuristic Data Visualization"
               className="w-full h-full object-cover"
             />
@@ -163,7 +163,7 @@ const ValueProposition: React.FC = () => {
             </div>
             <div className="w-full h-[400px] rounded-[1.5rem] overflow-hidden relative">
               <img
-                src="/image.png"
+                src="https://i.pinimg.com/1200x/b5/0c/f6/b50cf6a4d5030125120340f55112fc4e.jpg"
                 alt="Ambitious Founders"
                 className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
               />
